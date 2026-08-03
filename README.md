@@ -1,3 +1,5 @@
+![ground-my-ui social preview](assets/social-preview.png)
+
 # ground-my-ui
 
 **Most "ugly" UI is not a taste problem — it is code quietly lying to a
