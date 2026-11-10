@@ -19,7 +19,7 @@ three pairs and match them:
 - `~/Sites/skills/seed-ah/assets/social-preview-base.png` + `social-preview.png`
 - `~/Sites/skills/reproduce-my-bug/assets/social-preview-base.png` + `social-preview.png`
 - `~/Sites/skills/know-my-repo/assets/social-preview-base.png` + `social-preview.png`
-- `~/Sites/skills/transform-my-repo/assets/`, `twin-my-site/assets/`, `jury-my-repo/assets/` for more range
+- `~/Sites/skills/transform-my-repo/assets/`, `clean-slate/assets/` for more range
 
 **The references are the spec.** Where this brief and the reference images
 disagree, the images win — measure them rather than trusting the numbers
