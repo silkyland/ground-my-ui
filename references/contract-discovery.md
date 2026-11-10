@@ -95,8 +95,8 @@ with a removal date is a defect with a deadline.
 ## Enumerating tokens
 
 ```bash
-# All available token names, by family
-grep -ohE '\--(color|space|scale-size|font-size|font-weight|border-radius)[a-z0-9-]*' \
+# All available token names — group by prefix (color-, space-, duration-, z-index-, …)
+grep -ohE '\--[a-z0-9][a-z0-9-]*' \
   <tokens>/**/*.css | sort -u
 
 # Does this exact one exist?
@@ -133,7 +133,10 @@ python3 - <<'PY'
 import json, glob
 KEY = "namespace.section.key"
 for p in sorted(glob.glob("**/locales/*.json", recursive=True)):
-    node = json.load(open(p, encoding="utf-8"))
+    tree = json.load(open(p, encoding="utf-8"))
+    if KEY in tree:  # flat dotted-key locales (vue-i18n flat mode, .NET-style)
+        print(f"OK   {p}"); continue
+    node = tree
     for part in KEY.split("."):
         node = (node or {}).get(part) if isinstance(node, dict) else None
     print(f"{'OK  ' if node else 'MISS'} {p}")

@@ -9,7 +9,7 @@ description: >-
   an invalid variant renders unstyled, a misspelled slot renders nothing,
   an undefined custom property voids the whole declaration, a missing
   translation key prints itself. Stack-agnostic (React, Vue, Svelte,
-  Angular, Twig/PHP, Rails, SwiftUI, Compose, Flutter, .NET) and works
+  Angular, Twig/PHP, Django, Rails, SwiftUI, Compose, Flutter, .NET) and works
   inside any design system, then locks the verified contracts into tests.
   Use when a screen looks wrong, unstyled, misaligned, or inconsistent
   with its design system, when components render blank or ignore their
@@ -46,9 +46,10 @@ there.
 ## Hard rules
 
 1. **Look at the rendered thing — before and after.** A diagnosis from
-   source alone is a guess. Screenshot it, measure the real box model,
-   read the console. If you cannot render it, say so and mark every
-   finding `UNVERIFIED`.
+   source alone is a guess. Screenshot it (browser automation, devtools,
+   or a capture the user supplies), measure the real box model, read the
+   console. If you cannot render it and the user cannot supply a capture,
+   say so and mark every finding `UNVERIFIED`.
 2. **Never enter credentials to reach the screen.** Ask the user to log
    in, or to hand you a reachable URL. Waiting is cheaper than a wrong
    assumption about what the page looks like.
@@ -67,6 +68,10 @@ there.
    card whose button leads to the wrong page is not finished.
 6. **Delete redundancy instead of restyling it.** If two elements do the
    same job, the fix is one element, not two prettier ones.
+
+Effort scales with the defect: a single-issue fix (one bad key, one wrong
+prop) may compress the phases — state the one change and its ledger row,
+then proceed. Full ceremony is for audits and redesigns.
 
 ## Progress checklist
 
@@ -207,8 +212,10 @@ Build against verified contracts only. While rebuilding:
 ## Phase 5 — Lock the contracts in
 
 An audit that lives only in chat gets re-broken next sprint. Write tests
-that fail on reintroduction — patterns per ecosystem in
-[references/contract-tests.md](references/contract-tests.md). Each test
+that fail on reintroduction — patterns in
+[references/contract-tests.md](references/contract-tests.md) (JS-flavored
+examples; the principles port — adapt the framework mechanics per stack).
+Each test
 names the defect it prevents in a comment. Cheap, high-value asserts:
 
 - Every enum value used appears in the library's allowed set.
@@ -241,6 +248,7 @@ alone.
 |-----------|----------|
 | **Cannot reach the screen (auth wall)** | Ask the user to log in; never type credentials. Audit source meanwhile, mark findings UNVERIFIED until rendered |
 | **Library source not on disk (CDN/binary only)** | Use the version-pinned published types/docs, say the evidence is second-hand, and verify each contract in the browser instead |
+| **Minified dist, no types, no src** | Still greppable — read it for enum strings and class names, cite it, and mark confidence accordingly |
 | **Contract is a private/internal API** | Prefer a public alternative; if none, isolate the usage in one place with a comment naming the risk |
 | **Override keeps losing to library CSS** | Ownership audit, not `!important` — check specificity ties, load order, scoped attributes, layers, shadow DOM |
 | **Console errors persist after the fix** | Reload and re-read; buffers keep stale entries. Then confirm the DOM actually contains the offender before chasing it |

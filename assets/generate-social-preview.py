@@ -3,7 +3,8 @@
 
 The source artwork was generated with OpenAI's built-in image generation tool.
 This script deterministically normalizes that artwork, applies the house fade,
-and composites the exact approved copy.
+and composites the exact approved copy. Fonts are macOS Avenir Next — on
+other platforms install an equivalent or the script stops at FONT_PATHS.
 """
 
 from pathlib import Path
